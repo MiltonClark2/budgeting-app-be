@@ -35,6 +35,28 @@ transactionRoutes.delete("/:index", (req, res) => {
 });
 
 // /transactions/1
+transactionRoutes.put("/:index", (req, res) => {
+    let{ index } = req.params;
+
+    if(!transactionsArr[index]){
+        res.status(404).json({Error: "Not Found"
+    })
+        return;
+    };
+
+    let { item_name, amount, date, from, category } = req.body;
+    if(item_name && amount && date !==undefined && from && category){
+        transactionsArr[index] = {
+            item_name, amount, date, from, category
+        };
+        res.json(transactionsArr[index]);
+    } else {
+        res.status(422).json({
+            Error: "Please provide all fields"
+        });
+    };
+
+});
 
 
 
